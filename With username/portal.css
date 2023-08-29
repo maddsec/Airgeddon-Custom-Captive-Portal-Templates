@@ -1,0 +1,161 @@
+*{
+	margin:0;
+	padding: 0;
+	font-family: 'Poppins', sans-serif;
+	box-sizing: border-box;
+}
+
+body * {
+	box-sizing: border-box;
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+.title {
+	text-align: center;
+	margin-bottom: 15px;
+}
+
+#password {
+	width: 100%;
+	margin-bottom: 5px;
+	border-radius: 5px;
+	height: 30px;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+#showpass {
+	vertical-align: top;
+}
+
+@media screen (min-width: 1000px) {
+	.content {
+		width: 50%;
+	}
+}
+
+.title {
+	text-align: center;
+	margin-bottom: 15px;
+}
+
+#password,#username {
+	width: 100%;
+	margin-bottom: 5px;
+	border-radius: 5px;
+	height: 30px;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.showpass {
+	display: flex;
+	align-items: center;
+}
+
+.showpass p {
+	margin:0;
+	white-space: nowrap;
+}
+
+#showpass {
+    margin-left: 5px; /* Add some spacing between the checkbox and the text */
+}
+
+.content {
+	width:100%;
+	height: 100vh;
+	background-image: linear-gradient(rgb(0,0,0,0.4),rgba(0, 0, 0, 0.4)),url(back.jpg);/*rgb(16,164,76,0.8)  rgba(0, 0, 50, 0.8)*/
+	background-position: center;
+	background-size: cover;
+	position: relative;
+}
+
+.form-box {
+	width: 90%;
+	max-width: 450px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	background-color: #fff;
+	padding: 50px 60px 70px;
+	text-align: center;
+	-webkit-transform: translate(-50%,-50%);
+	-moz-transform: translate(-50%,-50%);
+	-ms-transform: translate(-50%,-50%);
+	-o-transform: translate(-50%,-50%);
+}
+
+.login {
+	padding-top: 20px;
+}
+
+.input-field{
+	background:#eaeaea;
+	margin:15px 0;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-ms-border-radius: 3px;
+	-o-border-radius: 3px;
+	display: flex;
+	align-items: center;
+}
+
+.showpass {
+	display: flex;
+	align-items: center;
+	
+	margin:15px 0;
+}
+
+input{
+	width: 100%;
+	background: transparent;
+	border:0;
+	outline:0;
+	padding: 18px 15px;
+}
+
+.btn-field{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.btn-field input{
+	background: #000000;
+	color: #fff;
+	height: 40px;
+	border-radius: 20px;
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	-ms-border-radius: 20px;
+	-o-border-radius: 20px;
+	border: 0;
+	outline: 0;
+	cursor: pointer;
+	transition: background 1s;
+	-webkit-transition: background 1s;
+	-moz-transition: background 1s;
+	-ms-transition: background 1s;
+	-o-transition: background 1s;
+	text-align: center;
+	height: 45px;
+}
+
+.fill {
+	overflow: hidden;
+}
+
+.fill img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+ }
